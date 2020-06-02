@@ -25,17 +25,17 @@ class Main(object):
             import io 
             image = Image.open(io.BytesIO(mlskill_input)) 
             
-        :param str mlskill_input: input coming from a client. """ 
+        :param str mlskill_input: input coming from a client. """
+
         import pandas as pd
         data = pd.read_json(mlskill_input)
         predictions = self.model.predict(data.values)
-        
         return json.dumps(predictions.tolist())
             
-# if __name__ == '__main__':
-#     main = Main()
-#     df = pd.read_csv('Benchmark_data\\50k_train.csv', header=0).head(20)
-#     df = df.drop('click', axis=1)
-#     json_df = df.to_json(orient='records')
-#     print(main.predict(json_df))
+if __name__ == '__main__':
+    main = Main()
+    df = pd.read_csv('data/test/evaluate.csv', header=0).head(20)
+    df = df.drop('shares', axis=1)
+    json_df = df.to_json(orient='records')
+    print(main.predict(json_df))
 

@@ -1,5 +1,5 @@
 # OS Packages Documentation  
-## TPOT Automated Machine Learning Pipeline (for classification)
+## TPOT Automated Machine Learning Pipeline (for regression)
 
 ### 1.	Model details
 #### Input type: 
@@ -15,27 +15,21 @@ Features used by the model to make predictions. For example: {
 }
 
 #### Output Description: 
-JSON with predicted class, associated confidence on that class prediction (between 0-1) and label name. Label names are returned only if the label encoding was performed by the pipeline, within AI Fabric. Some scikit-learn models do not support confidence scores. If the output of the optimization pipeline is a scikit-learn model which does not support confidence scores the output will only contain the predicted class. Ex: {
-  "predictions": 0, 
-  "confidences": 0.6,
-  "labels": “yes” 
+JSON with list of predictions: {
+  "predictions" : "[12, 12, 2, 354, 12, 2]
 }
-Or if label encoding was done outside of the model: {
-  "predictions": 0, 
-  "confidences": 0.6,
-}  
 
 #### Language: 
 Python 3.6 
 
 
-
-
 ### 2.	Package details:
 
-#### Description:  
+#### Description: 
 Please train this ML Package before deploying it as it will not return anything otherwise.  
-POT is a Python Automated Machine Learning tool that optimizes machine learning pipelines using genetic programming. TPOT will automate the most tedious part of machine learning by intelligently exploring thousands of possible pipelines to find the best one for your data. Once TPOT is finished searching (or you get tired of waiting), it provides you with the Python code for the best pipeline it found so you can tinker with the pipeline from there. TPOT is built on top of scikit-learn, so all the code it generates should look familiar to scikit-learn users.
+TPOT is a Python Automated Machine Learning tool that optimizes machine learning pipelines using genetic programming. TPOT will automate the most tedious part of machine learning by intelligently exploring thousands of possible pipelines to find the best one for your data. Once TPOT is finished searching (or you get tired of waiting), it provides you with the Python code for the best pipeline it found so you can tinker with the pipeline from there. TPOT is built on top of scikit-learn, so all the code it generates should look familiar to scikit-learn users.
+
+TPOT uses the following set of models and pre-processing steps in its optimizations process: https://github.com/EpistasisLab/tpot/blob/master/tpot/config/regressor.py
 
 #### Pipelines: 
 This package can run with the three type of pipelines: Full pipeline, Training Pipeline and Evaluation Pipeline.
@@ -43,14 +37,14 @@ This package can run with the three type of pipelines: Full pipeline, Training P
 #### Dataset format: 
 This ML Package will look for csv files in your dataset (not in subdirectories).
 
-        •	csv files: First row of the data must contain the header/column names. All columns, except for the target column, must be numerical (int, float). The model is not able perform feature encoding however it is able to perform target encoding. If target encoding is performed by the model, at prediction time, the model will also return the label of the target variable. 
+        •	csv files: First row of the data must contain the header/column names. All columns, except for the target column, must be numerical (int, float). The model is not able perform feature encoding.
 
 #### Environment variables: 
     •	“train_time”: time to tun the pipeline (in minutes). The longer the train time the better chances TPOT has at finding a good model. (default: 2)
 
     •	“target_column”: name of the target column (default: “target”)
 
-    •	“scoring”: TPOT makes use of sklearn.model_selection.cross_val_score for evaluating pipelines, and as such offers the same support for scoring functions (default: “accuracy”). Uses standard scikit-learn scoring metrics (https://scikit-learn.org/stable/modules/model_evaluation.html)
+    •	“scoring”: TPOT makes use of sklearn.model_selection.cross_val_score for evaluating pipelines, and as such offers the same support for scoring functions (default: “neg_mean_squared_error”). The following built-in scoring functions can be used: {'neg_median_absolute_error', 'neg_mean_absolute_error', 'neg_mean_squared_error', 'r2'}. Custom scoring functions can be defined as well: https://epistasislab.github.io/tpot/using/#scoring-functions
 
     •	"keep_training": Typical TPOT runs will take hours to days to finish (unless it's a small dataset), but you can always interrupt the run partway through and see the best results so far. If keep_training is set to True, TPOT will continue the training where it left of.
 

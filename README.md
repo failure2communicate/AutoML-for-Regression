@@ -1,10 +1,10 @@
-# AutoML for classification
-## Implement AutoML libraries for classification on tabular data sets
+# AutoML for regression
+## Implement AutoML libraries for regression on tabular data sets
 The goal of the project is to integrate AutoML libraries as OOB pipelines into AI Fabric.
 
 ## Libraries and implementation progress:
     1. TPOT ---------- DONE
-    2. auto-sklearn -- IN PROGRESS
+    2. auto-sklearn -- NOT STARTED
     3. AutoKeras ----- NOT STARTED
     4. H20.ai -------- NOT STARTED
 
@@ -15,15 +15,14 @@ best fitting pipelines. In the first approach, we restrict training to a certain
 than compare the performance of the resulting pipelines.
 
 ## Data set:
-Website click prediction: https://www.openml.org/data/get_csv/183150/phpqZOQcc 
+Online news popularity: https://archive.ics.uci.edu/ml/datasets/Online+News+Popularity
 
 
 ## Performance:
 
-| Library         | Accuracy | F1 Score | Train time (m) |
-| :-------------- | :------- | :------- | :------------- |
-| TPOT_all_models |          |          |                |
-| TPOT_xgboost    |          |          |                |
-| auto_sklearn    |          |          |                |
-| AUtoKeras       |          |          |                |
-| H20.ai          |          |          |                |
+| Library         | Neg_mean_squared_error | Train time (m) |
+| :-------------- | :--------------------- | :------------- |
+| TPOT_all_models |                        |                |
+| TPOT_xgboost    |                        |                |
+| AutoKeras       |                        |                |
+| H20.ai          |                        |                |

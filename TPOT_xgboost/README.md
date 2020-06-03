@@ -40,13 +40,13 @@ This ML Package will look for csv files in your dataset (not in subdirectories).
     •	csv files: First row of the data must contain the header/column names. All columns, except for the target column, must be numerical (int, float). The model is not able perform feature encoding.
 
 #### Environment variables: 
-•	“train_time”: time to tun the pipeline (in minutes). The longer the train time the better chances TPOT has at finding a good model. (default: 2)
+    •	“train_time”: time to tun the pipeline (in minutes). The longer the train time the better chances TPOT has at finding a good model. (default: 2)
 
-•	“target_column”: name of the target column (default: “target”)
+    •	“target_column”: name of the target column (default: “target”)
 
-•	“scoring”: TPOT makes use of sklearn.model_selection.cross_val_score for evaluating pipelines, and as such offers the same support for scoring functions (default: “neg_mean_squared_error”). The following built-in scoring functions can be used: {'neg_median_absolute_error', 'neg_mean_absolute_error', 'neg_mean_squared_error', 'r2'}. Custom scoring functions can be defined as well: https://epistasislab.github.io/tpot/using/#scoring-functions
+    •	“scoring”: TPOT makes use of sklearn.model_selection.cross_val_score for evaluating pipelines, and as such offers the same support for scoring functions (default: “neg_mean_squared_error”). The following built-in scoring functions can be used: {'neg_median_absolute_error', 'neg_mean_absolute_error', 'neg_mean_squared_error', 'r2'}. Custom scoring functions can be defined as well: https://epistasislab.github.io/tpot/using/#scoring-functions
 
-•	"keep_training": Typical TPOT runs will take hours to days to finish (unless it's a small dataset), but you can always interrupt the run partway through and see the best results so far. If keep_training is set to True, TPOT will continue the training where it left of.
+    •	"keep_training": Typical TPOT runs will take hours to days to finish (unless it's a small dataset), but you can always interrupt the run partway through and see the best results so far. If keep_training is set to True, TPOT will continue the training where it left of.
 
 #### Artifacts:
 TPOT exports the corresponding Python code for the optimized pipeline to a python file called “TPOT_pipeline.py”. Once the code finishes running, “TPOT_pipeline.py” will contain the Python code for the optimized pipeline.

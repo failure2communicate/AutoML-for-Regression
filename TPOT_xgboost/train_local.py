@@ -15,7 +15,7 @@ from training_only import config
 class Main(object):
     def __init__(self):
         self.cur_dir = os.path.dirname(os.path.realpath(__file__))
-        self.target_column = os.environ.get('target_column', 'shares')
+        self.target_column = os.environ.get('target_column', 'target')
         self.feature_columns = None
         self.artifacts_directory = os.environ.get('artifacts_directory', os.path.join(self.cur_dir, 'artifacts'))
         self.train_time = os.environ.get('train_time', 2)

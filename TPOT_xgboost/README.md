@@ -1,66 +1,68 @@
-# Model Name
-TPOT Automated Machine Learning 
-Uses TPOT to optimize a XGBoost model on a given data set.
- 
-# Input Type
-.csv
- 
-# Input Description
-Tabular data in .csv format. First row of the data must contain the header/column names
-and all columns, with the exeption of the target column must be numerical (int, float).
-Example:
-| Target          | Feature 1 | Feature 2 | Feature 3 |
-| :-------------- | :-------  | :-------  | :-------- |
-| Yes             |    1      |     0     |    123    |
-| No              |    2      |     1     |    223    |
-| No              |    30     |     1     |    354    |
-| Yes             |    0      |     0     |    44     |
-| No              |    12     |     0     |    55     |
+# OS Packages Documentation  
+## TPOT Automated Machine Learning Pipeline (for regression)
+
+### 1.	Model details
+#### Input type: 
+JSON
+
+#### Input Description:  
+Features used by the model to make predictions. For example: {
+“Feature1”:  12,
+“Feature2”:  222,
+.
+.
+“FeatureN”:  110
+}
+
+#### Output Description: 
+JSON with list of predictions: {
+  "predictions" : "[12, 12, 2, 354, 12, 2]
+}
+
+#### Language: 
+Python 3.6 
 
 
-# Output Description
-Prediction, Confidence Score and Label (pandas DataFrame coverted to a JSON string).
-If label encoding was done outside of AI Fabric, the output will not contain the "Label".
-Some scikit-learn models don't support confidence scores. If the output of the optimization pipeline is
-a scikit-learn model which doesn't support confidence scores the output will only contain the "Prediction". 
+### 2.	Package details:
 
-# Language
-Python 3.6
- 
-# Description
-Documentation: https://epistasislab.github.io/tpot/
+#### Description: 
+Please train this ML Package before deploying it as it will not return anything otherwise.  
+TPOT is a Python Automated Machine Learning tool that optimizes machine learning pipelines using genetic programming. TPOT will automate the most tedious part of machine learning by intelligently exploring thousands of possible pipelines to find the best one for your data. Once TPOT is finished searching (or you get tired of waiting), it provides you with the Python code for the best pipeline it found so you can tinker with the pipeline from there. TPOT is built on top of scikit-learn, so all the code it generates should look familiar to scikit-learn users.
 
-Consider TPOT your Data Science Assistant. TPOT is a Python Automated Machine Learning tool that optimizes machine learning pipelines using genetic programming.
-TPOT will automate the most tedious part of machine learning by intelligently exploring thousands of possible pipelines to find the best one for your data.
-Once TPOT is finished searching (or you get tired of waiting), it provides you with the Python code for the best pipeline it found so you can tinker with the pipeline from there.
-TPOT is built on top of scikit-learn, so all of the code it generates should look familiar to scikit-learn users.
+This version of TPOT uses only XGBoost and the standard set of pre-processing methods to optimize a machine learning pipeline.
 
-The model was not built by UiPath but rather was built by the DS community, UiPath makes no guarantees on any performance metrics of the model.
-The model is provided "as is" without warranty of any kind, either express or implied. Use at your own risk.   
-     
-# Training data description (if available)
-Not applicable
+#### Pipelines: 
+This package can run with the three type of pipelines: Full pipeline, Training Pipeline and Evaluation Pipeline.
 
-# Benchmark (if available)
-Not applicable
+#### Dataset format: 
+This ML Package will look for csv files in your dataset (not in subdirectories).
 
-# Author(s) and Publication (if available)
-The model is based on a publication entitled "Scaling tree-based automated machine learning to biomedical big data with a feature set selector."
-from Trang T. Le, Weixuan Fu and Jason H. Moore (2020) and "Evaluation of a Tree-based Pipeline Optimization Tool for Automating Data Science."
-from Randal S. Olson, Nathan Bartley, Ryan J. Urbanowicz, and Jason H. Moore.
+        •	csv files: First row of the data must contain the header/column names. All columns, except for the target column, must be numerical (int, float). The model is not able perform feature encoding.
+
+#### Environment variables: 
+    •	“train_time”: time to tun the pipeline (in minutes). The longer the train time the better chances TPOT has at finding a good model. (default: 2)
+
+    •	“target_column”: name of the target column (default: “target”)
+
+    •	“scoring”: TPOT makes use of sklearn.model_selection.cross_val_score for evaluating pipelines, and as such offers the same support for scoring functions (default: “neg_mean_squared_error”). The following built-in scoring functions can be used: {'neg_median_absolute_error', 'neg_mean_absolute_error', 'neg_mean_squared_error', 'r2'}. Custom scoring functions can be defined as well: https://epistasislab.github.io/tpot/using/#scoring-functions
+
+    •	"keep_training": Typical TPOT runs will take hours to days to finish (unless it's a small dataset), but you can always interrupt the run partway through and see the best results so far. If keep_training is set to True, TPOT will continue the training where it left of.
+
+#### Artifacts:
+TPOT exports the corresponding Python code for the optimized pipeline to a python file called “TPOT_pipeline.py”. Once the code finishes running, “TPOT_pipeline.py” will contain the Python code for the optimized pipeline.
+
+#### Paper: 
+The model is based on a publication entitled "Scaling tree-based automated machine learning to biomedical big data with a feature set selector." from Trang T. Le, Weixuan Fu and Jason H. Moore (2020) and "Evaluation of a Tree-based Pipeline Optimization Tool for Automating Data Science." from Randal S. Olson, Nathan Bartley, Ryan J. Urbanowicz, and Jason H. Moore.
 
 The publication can be found here:
-    
-1. https://academic.oup.com/bioinformatics/article/36/1/250/5511404
+-	https://academic.oup.com/bioinformatics/article/36/1/250/5511404
+-	http://dl.acm.org/citation.cfm?id=2908918
 
-2. http://dl.acm.org/citation.cfm?id=2908918
+#### Documentation:
+https://epistasislab.github.io/tpot/
 
-# Implementatoin
-The model was packaged into a form consumable by AI Fabric.
-
-# License
-GNU Lesser General Public License v3.0
-
+### License
+    GNU Lesser General Public License v3.0
     Copyright (C) 2007 Free Software Foundation, Inc. <http://fsf.org/>
     Everyone is permitted to copy and distribute verbatim copies
     of this license document, but changing it is not allowed.
@@ -223,3 +225,5 @@ GNU Lesser General Public License v3.0
     apply, that proxy's public statement of acceptance of any version is
     permanent authorization for you to choose that version for the
     Library.
+ 
+
